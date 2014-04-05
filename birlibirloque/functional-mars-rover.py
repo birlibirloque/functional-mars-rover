@@ -4,16 +4,20 @@ def createAMarsRoverAt (point):
 	return ({'x':point['x'], 'y':point['y'], 'f':point['f']})
 
 def fordward(mr):
-	if (mr['f'] == 'N'):
-		return (createAMarsRoverAt({'x':mr['x'],'y':mr['y']+1,'f':mr['f']}))
-	else:
-		return (createAMarsRoverAt({'x':mr['x']+1,'y':mr['y'],'f':mr['f']}))
+    return {
+        'N': createAMarsRoverAt({'x':mr['x'],'y':mr['y']+1,'f':mr['f']}),
+        'S': createAMarsRoverAt({'x':mr['x'],'y':mr['y']-1,'f':mr['f']}),
+        'E': createAMarsRoverAt({'x':mr['x']+1,'y':mr['y'],'f':mr['f']}),
+        'W': createAMarsRoverAt({'x':mr['x']-1,'y':mr['y'],'f':mr['f']}),
+        }[mr['f']]
 
 def backward(mr):
-	if (mr['f'] == 'N'):
-		return (createAMarsRoverAt({'x':mr['x'],'y':mr['y']-1,'f':mr['f']}))
-	else:
-		return (createAMarsRoverAt({'x':mr['x']-1,'y':mr['y'],'f':mr['f']}))
+    return {
+        'N': createAMarsRoverAt({'x':mr['x'],'y':mr['y']-1,'f':mr['f']}),
+        'S': createAMarsRoverAt({'x':mr['x'],'y':mr['y']+1,'f':mr['f']}),
+        'E': createAMarsRoverAt({'x':mr['x']-1,'y':mr['y'],'f':mr['f']}),
+        'W': createAMarsRoverAt({'x':mr['x']+1,'y':mr['y'],'f':mr['f']}),
+        }[mr['f']]
 
 def move (marsrover,commads):
 	if len(commads) > 1:

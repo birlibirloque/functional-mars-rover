@@ -115,5 +115,16 @@ class TestMarsRover (unittest.TestCase):
 		self.assertEqual(newmarsrover['y'],0)
 		self.assertEqual(newmarsrover['f'],'W')
 
+	def test_MoveMarsRoverTwoStepFordwardTurnRightAndTwoStepsFordwardFacingNorth(self):
+		#Given a mars rover at origin point and facing to north
+		originPointAndFacingToNorth = {'x':0, 'y':0, 'f':'N'}
+		marsrover = createAMarsRoverAt (originPointAndFacingToNorth)
+		#When we move mars rover three steps fordward and one backward
+		newmarsrover = createAMarsRoverAt(move(marsrover,'ffrff'))
+		#Then new mars rover is at two setps fordward to north
+		self.assertEqual(newmarsrover['x'],2)
+		self.assertEqual(newmarsrover['y'],2)
+		self.assertEqual(newmarsrover['f'],'E')
+
 if __name__ == '__main__':
 	unittest.main()

@@ -3,6 +3,12 @@ import unittest
 def createAMarsRoverAt (point):
 	return ({'x':point['x'], 'y':point['y'], 'f':point['f']})
 
+def fordward(mr):
+	return (createAMarsRoverAt({'x':mr['x'],'y':mr['y']+1,'f':mr['f']}))
+
+def backward(mr):
+	return (createAMarsRoverAt({'x':mr['x'],'y':mr['y']-1,'f':mr['f']}))
+
 def move (marsrover,commads):
 	if len(commads) > 1:
 		newmarsrover = createAMarsRoverAt(move(marsrover,commads[:-1]))
@@ -10,9 +16,9 @@ def move (marsrover,commads):
 		newmarsrover = createAMarsRoverAt(marsrover)
 
 	if (commads[-1] == 'f'):
-		return({'x':0, 'y':newmarsrover['y']+1, 'f':'N'})
+		return(fordward(newmarsrover))
 	else:
-		return({'x':0, 'y':newmarsrover['y']-1, 'f':'N'})
+		return(backward(newmarsrover))
 
 class TestMarsRover (unittest.TestCase):
 

@@ -4,7 +4,10 @@ def createAMarsRoverAt (point):
 	return ({'x':point['x'], 'y':point['y'], 'f':point['f']})
 
 def move (marsrover,commad):
-	return({'x':0, 'y':1, 'f':'N'})
+	if (commad == 'f'):
+		return({'x':0, 'y':1, 'f':'N'})
+	else:
+		return({'x':0, 'y':-1, 'f':'N'})
 
 class TestMarsRover (unittest.TestCase):
 
@@ -29,6 +32,16 @@ class TestMarsRover (unittest.TestCase):
 		self.assertEqual(newmarsrover['y'],1)
 		self.assertEqual(newmarsrover['f'],'N')
 
+	def test_MoveMarsRoverOneStepBackward(self):
+		#Given a mars rover at origin point and facing to north
+		originPointAndFacingToNorth = {'x':0, 'y':0, 'f':'N'}
+		marsrover = createAMarsRoverAt (originPointAndFacingToNorth)
+		#When we move mars rover one step backward
+		newmarsrover = createAMarsRoverAt(move(marsrover,'b'))
+		#Then new mars rover is at one setp backward to north
+		self.assertEqual(newmarsrover['x'],0)
+		self.assertEqual(newmarsrover['y'],-1)
+		self.assertEqual(newmarsrover['f'],'N')
 
 if __name__ == '__main__':
 	unittest.main()

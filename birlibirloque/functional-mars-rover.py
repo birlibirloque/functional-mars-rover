@@ -3,11 +3,16 @@ import unittest
 def createAMarsRoverAt (point):
 	return ({'x':point['x'], 'y':point['y'], 'f':point['f']})
 
-def move (marsrover,commad):
-	if (commad == 'f'):
-		return({'x':0, 'y':1, 'f':'N'})
+def move (marsrover,commads):
+	if len(commads) > 1:
+		newmarsrover = createAMarsRoverAt(move(marsrover,commads[:-1]))
 	else:
-		return({'x':0, 'y':-1, 'f':'N'})
+		newmarsrover = createAMarsRoverAt(marsrover)
+
+	if (commads[-1] == 'f'):
+		return({'x':0, 'y':newmarsrover['y']+1, 'f':'N'})
+	else:
+		return({'x':0, 'y':newmarsrover['y']-1, 'f':'N'})
 
 class TestMarsRover (unittest.TestCase):
 
@@ -41,6 +46,17 @@ class TestMarsRover (unittest.TestCase):
 		#Then new mars rover is at one setp backward to north
 		self.assertEqual(newmarsrover['x'],0)
 		self.assertEqual(newmarsrover['y'],-1)
+		self.assertEqual(newmarsrover['f'],'N')
+
+	def test_MoveMarsRoverThreeStepsFordwardAndOneBackward(self):
+		#Given a mars rover at origin point and facing to north
+		originPointAndFacingToNorth = {'x':0, 'y':0, 'f':'N'}
+		marsrover = createAMarsRoverAt (originPointAndFacingToNorth)
+		#When we move mars rover three steps fordward and one backward
+		newmarsrover = createAMarsRoverAt(move(marsrover,'fffb'))
+		#Then new mars rover is at two setps fordward to north
+		self.assertEqual(newmarsrover['x'],0)
+		self.assertEqual(newmarsrover['y'],2)
 		self.assertEqual(newmarsrover['f'],'N')
 
 if __name__ == '__main__':
